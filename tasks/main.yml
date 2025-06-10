@@ -1,4 +1,4 @@
 ---
-
-- import_tasks: netplan.yml
+- name: Ensure netplan is installed
+  ansible.builtin.import_tasks: netplan.yml
   when: netplan_enabled

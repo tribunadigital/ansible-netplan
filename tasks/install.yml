@@ -1,6 +1,5 @@
 ---
-- name: 'Install netplan'
-  apt:
-    name: '{{ netplan_packages }}'
-    state: 'present'
-
+- name: Install netplan
+  ansible.builtin.apt:
+    name: "{{ netplan_packages }}"
+    state: present

@@ -1,10 +1,11 @@
 ---
+- name: Generating Netplan Configuration
+  ansible.builtin.command: netplan generate
+  listen: netplan generate config
+  notify: netplan apply config
+  changed_when: false
 
-- name:       Generating Netplan Configuration
-  command:    netplan generate
-  listen:     netplan generate config
-  notify:     netplan apply config
-
-- name:       Applying Netplan Configuration
-  command:    netplan apply
-  listen:     netplan apply config
+- name: Applying Netplan Configuration
+  ansible.builtin.command: netplan apply
+  listen: netplan apply config
+  changed_when: false

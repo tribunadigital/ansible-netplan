@@ -1,8 +1,7 @@
 ---
-
-- name:       Configuring Netplan
-  template:
-    src:      etc/netplan/config.yaml.j2
-    dest:     "{{ netplan_config_file }}"
-  when:       netplan_configuration != {}
-  notify:     netplan generate config
+- name: Configuring Netplan
+  ansible.builtin.template:
+    src: etc/netplan/config.yaml.j2
+    dest: "{{ netplan_config_file }}"
+    mode: '0600'
+  notify: netplan generate config
