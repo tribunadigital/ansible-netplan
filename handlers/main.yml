@@ -1,8 +1,10 @@
 ---
+# Both handlers are notified directly by the template task and run in the
+# order defined here. A chained notify from a `changed_when: false` handler
+# never fires, so `netplan apply` was never executed.
 - name: Generating Netplan Configuration
   ansible.builtin.command: netplan generate
   listen: netplan generate config
-  notify: netplan apply config
   changed_when: false
 
 - name: Applying Netplan Configuration
