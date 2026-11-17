@@ -4,6 +4,4 @@
     src: etc/netplan/config.yaml.j2
     dest: "{{ netplan_config_file }}"
     mode: '0600'
-  notify:
-    - netplan generate config
-    - netplan apply config
+  notify: netplan generate config

@@ -1,13 +1,11 @@
 ---
-# Both handlers are notified directly by the template task and run in the
-# order defined here. A chained notify from a `changed_when: false` handler
-# never fires, so `netplan apply` was never executed.
+# Only `netplan generate`: the configuration takes effect at the next boot.
+# `netplan apply` (and `networkctl reload` after a generate, which bumps the
+# mtime of every generated file) reconfigures all links: foreign addresses
+# (keepalived VIP markers) are removed and a `critical: true` DHCP link loses
+# its lease without renewing it. Bring up new links at runtime in the calling
+# playbook if needed (ADMIN-8389).
 - name: Generating Netplan Configuration
   ansible.builtin.command: netplan generate
   listen: netplan generate config
-  changed_when: false
-
-- name: Applying Netplan Configuration
-  ansible.builtin.command: netplan apply
-  listen: netplan apply config
   changed_when: false
